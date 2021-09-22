@@ -1,4 +1,4 @@
 # Pretrained weights
 Download pretrained weights there: 
-https://drive.google.com/u/0/uc?id=1kp7xr2AA5gACWQYvsdwvHkRplvaAdwtj
+https://drive.google.com/drive/folders/16PlVKhTNkSyWFx52RPb2hXPIQveNGbxS
 

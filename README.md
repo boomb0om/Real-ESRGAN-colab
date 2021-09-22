@@ -23,7 +23,7 @@ You can try it in [google colab](https://colab.research.google.com/drive/1YlWt--
    pip install -r requirements.txt
    ```
 
-3. Download [pretrained weights](https://drive.google.com/u/0/uc?id=1kp7xr2AA5gACWQYvsdwvHkRplvaAdwtj) and put them into `weights/` folder
+3. Download [pretrained weights](https://drive.google.com/drive/folders/16PlVKhTNkSyWFx52RPb2hXPIQveNGbxS) and put them into `weights/` folder
 
 ### Usage
 
