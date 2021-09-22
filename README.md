@@ -36,12 +36,15 @@ from realesrgan import RealESRGAN
 from PIL import Image
 import numpy as np
 
-model = RealESRGAN()
-model.load_weights('weights/net_g_160000.pth')
-print('device:', model.device)
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print('device:', device)
 
-path_to_image = 'inputs/file_159.jpg'
+model = RealESRGAN(device, scale=4)
+model.load_weights('weights/RealESRGAN_x4.pth')
+
+path_to_image = 'inputs/lr_image.jpg'
 image = Image.open(path_to_image).convert('RGB')
 sr_image = model.predict(image)
+sr_image.save('results/sr_image.png')
 ```
 
