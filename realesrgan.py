@@ -9,26 +9,29 @@ from utils_sr import *
 
 
 class RealESRGAN:
-    def __init__(self, scale=4):
-        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    def __init__(self, device, scale=4):
+        self.device = device
         self.scale = scale
         self.model = RRDBNet(num_in_ch=3, num_out_ch=3, num_feat=64, num_block=23, num_grow_ch=32, scale=scale)
         
     def load_weights(self, model_path):
         loadnet = torch.load(model_path)
-        if 'params_ema' in loadnet:
-            keyname = 'params_ema'
+        if 'params' in loadnet:
+            self.model.load_state_dict(loadnet['params'], strict=True)
+        elif 'params_ema' in loadnet:
+            self.model.load_state_dict(loadnet['params_ema'], strict=True)
         else:
-            keyname = 'params'
-        self.model.load_state_dict(loadnet[keyname], strict=True)
+            self.model.load_state_dict(loadnet, strict=True)
         self.model.eval()
         self.model.to(self.device)
         
     def predict(self, lr_image, batch_size=4, patches_size=192,
-                padding=24, scale=4, pad_size=15):
+                padding=24, pad_size=15):
+        scale = self.scale
         device = self.device
         lr_image = np.array(lr_image)
         lr_image = pad_reflect(lr_image, pad_size)
+
         patches, p_shape = split_image_into_overlapping_patches(lr_image, patch_size=patches_size, 
                                                                 padding_size=padding)
         img = torch.FloatTensor(patches/255).permute((0,3,1,2)).to(device).detach()
@@ -48,4 +51,5 @@ class RealESRGAN:
         sr_img = (np_sr_image*255).astype(np.uint8)
         sr_img = unpad_image(sr_img, pad_size*scale)
         sr_img = Image.fromarray(sr_img)
+
         return sr_img

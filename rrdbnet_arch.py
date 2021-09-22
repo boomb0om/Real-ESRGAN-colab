@@ -83,7 +83,7 @@ class RRDBNet(nn.Module):
     """
 
     def __init__(self, num_in_ch, num_out_ch, scale=4, num_feat=64, num_block=23, num_grow_ch=32):
-        super(RRDBNet, self).__init__()
+        super(RRDBNet_custom, self).__init__()
         self.scale = scale
         if scale == 2:
             num_in_ch = num_in_ch * 4
@@ -95,6 +95,8 @@ class RRDBNet(nn.Module):
         # upsample
         self.conv_up1 = nn.Conv2d(num_feat, num_feat, 3, 1, 1)
         self.conv_up2 = nn.Conv2d(num_feat, num_feat, 3, 1, 1)
+        if scale == 8:
+            self.conv_up3 = nn.Conv2d(num_feat, num_feat, 3, 1, 1)
         self.conv_hr = nn.Conv2d(num_feat, num_feat, 3, 1, 1)
         self.conv_last = nn.Conv2d(num_feat, num_out_ch, 3, 1, 1)
 
@@ -113,5 +115,7 @@ class RRDBNet(nn.Module):
         # upsample
         feat = self.lrelu(self.conv_up1(F.interpolate(feat, scale_factor=2, mode='nearest')))
         feat = self.lrelu(self.conv_up2(F.interpolate(feat, scale_factor=2, mode='nearest')))
+        if self.scale == 8:
+            feat = self.lrelu(self.conv_up3(F.interpolate(feat, scale_factor=2, mode='nearest')))
         out = self.conv_last(self.lrelu(self.conv_hr(feat)))
         return out
