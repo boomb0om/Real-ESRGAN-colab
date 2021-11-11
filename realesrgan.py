@@ -7,7 +7,6 @@ import cv2
 from rrdbnet_arch import RRDBNet
 from utils_sr import *
 
-
 class RealESRGAN:
     def __init__(self, device, scale=4):
         self.device = device
@@ -24,7 +23,7 @@ class RealESRGAN:
             self.model.load_state_dict(loadnet, strict=True)
         self.model.eval()
         self.model.to(self.device)
-        
+
     @torch.cuda.amp.autocast()
     def predict(self, lr_image, batch_size=4, patches_size=192,
                 padding=24, pad_size=15):
