@@ -1,4 +1,6 @@
 # Real-ESRGAN-inference
+**This is a copy of [ai-forever/Real-ESRGAN](https://github.com/ai-forever/Real-ESRGAN) repository**
+
 PyTorch implementation of a Real-ESRGAN model trained on custom dataset. This model shows better results on faces compared to the original version. It is also easier to integrate this model into your projects.
 
 Real-ESRGAN is an upgraded [ESRGAN](https://arxiv.org/abs/1809.00219) trained with pure synthetic data is capable of enhancing details while removing annoying artifacts for common real-world images. 
