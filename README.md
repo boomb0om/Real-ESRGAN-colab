@@ -1,5 +1,6 @@
 # Real-ESRGAN-inference
-**This is a copy of [ai-forever/Real-ESRGAN](https://github.com/ai-forever/Real-ESRGAN) repository**
+### **❗️ This repository is outdated ❗️**
+**❗️ Check out [ai-forever/Real-ESRGAN](https://github.com/ai-forever/Real-ESRGAN) for the last version**
 
 PyTorch implementation of a Real-ESRGAN model trained on custom dataset. This model shows better results on faces compared to the original version. It is also easier to integrate this model into your projects.
 
